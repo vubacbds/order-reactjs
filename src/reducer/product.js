@@ -17,7 +17,7 @@ export const productReducer = (state = initialState, action) => {
 
     case "UPDATE_PRODUCT": {
       const newProductList = state.data.map((item) => {
-        if (item._id == action.payload._id) {
+        if (item._id == action.payload.id) {
           return (item = { ...item, ...action.payload.data });
         } else return item;
       });
@@ -28,7 +28,7 @@ export const productReducer = (state = initialState, action) => {
       };
     }
 
-    case "DELETE_PRODUCT_SUCCESS": {
+    case "DELETE_PRODUCT": {
       const newState = { ...state };
       const newProductList = newState.data.filter(
         (item) => item._id !== action.payload.id
