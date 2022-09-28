@@ -43,6 +43,46 @@
      border-radius: 4px;
      padding: 5px;
 }
+
 .product-hover:hover {
   box-shadow: 1px 1px 1px grey;
+}
+
+.footer {
+  height: 120;
+  /* background: #F7FEFF; */
+  text-align: left;
+
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Padding table antd */
+.ant-table-tbody{
+  padding: 2px !important;
+}
+.ant-table-tbody > tr > td{
+  padding: 2px !important;
+}
+
+.button-order {
+  width: 100px;
+  float: right;
+  background: #09C;
+  color: #fff;
+  font-family: Tahoma, Geneva, sans-serif;
+  height: 30px;
+  border-radius: 15px;
+  border: 1p solid #999;
+  top: 10px;
+}
+.button-order:hover {
+  background: #fff;
+  color: #09C;
+}
+
+.ant-btn-link {
+  padding: 6px !important;
 }

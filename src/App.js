@@ -36,7 +36,7 @@ function App() {
         <Header />
         <Routes>
           <Route
-            path="/"
+            path="/:ban"
             element={
               <React.Suspense
                 fallback={

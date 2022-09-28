@@ -5,7 +5,7 @@ const Header = () => {
         style={{ height: 40, background: "#F7FEFF" }}
         className="navbar-fixed-top sticky-top"
       >
-        <p>*Hướng dẫn: Chọn tăng giảm số lượng để đặt hàng</p>
+        <p>*Hướng dẫn: Hãy chọn số lượng để gọi nhé</p>
       </div>
     </>
   );

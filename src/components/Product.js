@@ -6,6 +6,8 @@ import { add_bill, update_bill } from "../action/bill";
 import { Col, Row, InputNumber, Form, Input, Button } from "antd";
 import Carousel from "react-bootstrap/Carousel";
 import { useEffect, useState } from "react";
+//react-dom
+import { useParams } from "react-router-dom";
 import {
   MinusCircleOutlined,
   MinusSquareOutlined,
@@ -18,6 +20,7 @@ const Product = () => {
   const dispatch = useDispatch();
   const dataProduct = useSelector((state) => state.product.data);
   const dataBill = useSelector((state) => state.bill.data);
+  const params = useParams();
 
   //Khi chạy tạo bill rỗng
   useEffect(() => {
@@ -26,7 +29,7 @@ const Product = () => {
         table: "",
         note: "",
         detail: [],
-        price: 0,
+        total_price: 0,
         status: false,
       })
     );
@@ -45,7 +48,7 @@ const Product = () => {
                 className="product-hover"
               >
                 <Col span={6}>
-                  <Carousel slide={false}>
+                  <Carousel slide={false} interval={10000}>
                     {item.images.map((i, index) => {
                       return (
                         <Carousel.Item key={index}>
@@ -60,12 +63,28 @@ const Product = () => {
                     })}
                   </Carousel>
                 </Col>
-                <Col span={8}>
-                  <p>{item.name}</p>
-                  <p>{item.description}</p>
-                </Col>
                 <Col span={10}>
-                  <div style={{ display: "flex" }}>
+                  <b>{item.name}</b>
+                  <p
+                    style={{
+                      color: "red",
+                      fontWeight: "bold",
+                      fontSize: 14,
+                    }}
+                  >
+                    {item.price.toLocaleString("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    })}
+                  </p>
+                </Col>
+                <Col span={8} style={{ borderLeft: "1px solid gray" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      marginTop: 36,
+                    }}
+                  >
                     <Button
                       type="link"
                       onClick={() => {
@@ -96,16 +115,17 @@ const Product = () => {
                                   id: item._id,
                                   name: item.name,
                                   amount: i.amount - 1,
+                                  price: (i.amount - 1) * item.price,
                                 });
                               } else return i;
                             });
 
                             dispatch(
                               update_bill({
-                                table: "Bàn 1",
+                                table: `Bàn ${params.ban}`,
                                 note: "Nhanh nhé!",
                                 detail: updateDetail,
-                                price: 0,
+                                total_price: 0,
                                 status: false,
                               })
                             );
@@ -115,14 +135,22 @@ const Product = () => {
                     >
                       <MinusCircleOutlined
                         style={{
-                          fontSize: "20px",
+                          fontSize: "24px",
                           color: "gray",
                           flexGrow: 1,
                         }}
                       />
                     </Button>
 
-                    <Input value={item.amount} style={{ flexGrow: 2 }} />
+                    <Button
+                      style={{
+                        flexGrow: 2,
+                        fontStyle: "bold",
+                        textAlign: "center",
+                      }}
+                    >
+                      {item.amount}
+                    </Button>
 
                     <Button
                       type="link"
@@ -136,7 +164,7 @@ const Product = () => {
 
                         //Kiểm tra sản phẩm đã có trong bill chưa
                         const isHave =
-                          dataBill?.detail.length > 0
+                          dataBill?.detail?.length > 0
                             ? dataBill?.detail?.find((i) => {
                                 return i?.id == item._id;
                               })
@@ -148,13 +176,17 @@ const Product = () => {
                             id: item._id,
                             name: item.name,
                             amount: 1,
+                            price: item.price,
                           };
+
+                          let oldArray = dataBill?.detail;
+                          const newArray = [createDetail, ...oldArray];
                           dispatch(
                             update_bill({
-                              table: "Bàn 1",
+                              table: `Bàn ${params.ban}`,
                               note: "Nhanh nhé!",
-                              detail: [...dataBill.detail, createDetail],
-                              price: 0,
+                              detail: newArray,
+                              total_price: 0,
                               status: false,
                             })
                           );
@@ -165,16 +197,17 @@ const Product = () => {
                                 id: item._id,
                                 name: item.name,
                                 amount: i.amount + 1,
+                                price: (i.amount + 1) * item.price,
                               });
                             } else return i;
                           });
 
                           dispatch(
                             update_bill({
-                              table: "Bàn 1",
+                              table: `Bàn ${params.ban}`,
                               note: "Nhanh nhé!",
                               detail: updateDetail,
-                              price: 0,
+                              total_price: 0,
                               status: false,
                             })
                           );
@@ -184,7 +217,7 @@ const Product = () => {
                     >
                       <PlusCircleOutlined
                         style={{
-                          fontSize: "20px",
+                          fontSize: "24px",
                           color: "gray",
                           flexGrow: 1,
                         }}
