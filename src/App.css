@@ -68,7 +68,7 @@
 }
 
 .button-order {
-  width: 100px;
+  /* width: 100px; */
   float: right;
   background: #09C;
   color: #fff;
@@ -77,6 +77,7 @@
   border-radius: 15px;
   border: 1p solid #999;
   top: 10px;
+  margin-bottom: 20px;
 }
 .button-order:hover {
   background: #fff;
@@ -85,4 +86,16 @@
 
 .ant-btn-link {
   padding: 6px !important;
+}
+
+.app-disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.6;
+}
+
+.app-enabled {
+  pointer-events: all;
+  cursor: default;
+  opacity: 1;
 }

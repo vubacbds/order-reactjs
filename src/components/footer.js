@@ -2,12 +2,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Popconfirm, Table } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { update_bill } from "../action/bill";
-import { update_product } from "../action/product";
+import get_product, { update_product } from "../action/product";
+import BillAPI from "../services/billAPI";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Footer = () => {
   const dispatch = useDispatch();
+  const dataProduct = useSelector((state) => state.product.data);
   const dataBill = useSelector((state) => state.bill.data);
   const dataBillTable = dataBill.detail?.filter((item) => item.amount > 0);
+  const navigate = useNavigate();
 
   const total_price = dataBill.detail?.reduce((total, currentValue) => {
     return total + currentValue.price;
@@ -36,6 +42,39 @@ const Footer = () => {
       })
     );
   };
+
+  //Thông báo
+  const BillAddSuccess = () => {
+    toast.success("Đã đặt thành công !", {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
+  };
+  const BillAddFail = (message) => {
+    toast.error(message, {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
+  };
+
+  //Xử lý đặt
+  const handleDat = () => {
+    BillAPI.add_bill({
+      ...dataBill,
+      total_price,
+    })
+      .then(() => {
+        BillAddSuccess();
+        alert(
+          "Quý khách đã đặt hàng thành công! Vui lòng chờ để nhân viên giao nhé"
+        );
+        document.getElementById("app")?.classList.add("app-disabled");
+        setIsDat(true);
+      })
+      .catch((err) => {
+        BillAddFail(err.response.data.message);
+      });
+  };
+
+  //Cột table
   const columns = [
     {
       title: "Tên",
@@ -80,6 +119,26 @@ const Footer = () => {
     },
   ];
 
+  const [isDat, setIsDat] = useState(false);
+  const handleReset = () => {
+    //Ẩn button thông báo thành công và tắt ẩn cả app
+    document.getElementById("app")?.classList.remove("app-disabled");
+    setIsDat(false);
+
+    //Reset lại bill
+    dispatch(
+      update_bill({
+        table: "",
+        note: "",
+        detail: [],
+        total_price: 0,
+        status: false,
+      })
+    );
+
+    //Reset lại số lượng sp về ko
+    dispatch(get_product());
+  };
   return (
     <>
       <div className=" footer">
@@ -95,9 +154,21 @@ const Footer = () => {
           })}
         </div> */}
 
-        <button className="button-order" disabled={total_price == 0}>
-          Đặt
-        </button>
+        {isDat && (
+          <Button className="app-enabled " onClick={() => handleReset()}>
+            Đặt tiếp tại đây!
+          </Button>
+        )}
+
+        <Popconfirm
+          title="Bạn chắc chắn đặt không?"
+          onConfirm={() => handleDat()}
+          disabled={total_price == 0}
+        >
+          <Button className="button-order" type="primary">
+            Đặt
+          </Button>
+        </Popconfirm>
         <p style={{ float: "right", marginRight: 10 }}>
           Tổng:{" "}
           {total_price?.toLocaleString("vi-VN", {

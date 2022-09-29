@@ -47,7 +47,7 @@ const Product = () => {
                 style={{ margin: "8px 8px" }}
                 className="product-hover"
               >
-                <Col span={6}>
+                <Col span={6} className="app-enabled">
                   <Carousel slide={false} interval={10000}>
                     {item.images.map((i, index) => {
                       return (

@@ -32,7 +32,7 @@ function App() {
 
   return (
     <>
-      <div className="App">
+      <div className="App" id="app">
         <Header />
         <Routes>
           <Route
@@ -49,11 +49,9 @@ function App() {
               </React.Suspense>
             }
           />
-          {/* <Route path="/user/verify/:userid" element={<VerifyEmail />} />
-          <Route path="/demo" element={<Demo />} /> */}
 
-          {/* Để cuối */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="/" element={<Navigate to="/1" replace />} />
+          <Route path="*" element={<h2> Not found</h2>} />
         </Routes>
 
         <ToastContainer />
