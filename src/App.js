@@ -20,6 +20,8 @@ import { BackTop, Spin } from "antd";
 //component
 import Header from "./components/header";
 import Footer from "./components/footer";
+import Login from "./components/login";
+import ProductList from "./components/productlist";
 
 function App() {
   const Product = React.lazy(() => import("./components/product"));
@@ -50,6 +52,17 @@ function App() {
             }
           />
 
+          <Route path="/admin/login" element={<Login />} />
+          <Route
+            path="/admin/product-list"
+            element={
+              localStorage.getItem("accessToken") ? (
+                <ProductList />
+              ) : (
+                <Navigate to="/1" replace />
+              )
+            }
+          />
           <Route path="/" element={<Navigate to="/1" replace />} />
           <Route path="*" element={<h2> Not found</h2>} />
         </Routes>
