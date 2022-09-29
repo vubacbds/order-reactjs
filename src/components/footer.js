@@ -140,57 +140,43 @@ const Footer = () => {
     dispatch(get_product());
   };
   return (
-    <>
+    <div className="footer scroll-footer-order">
       <Row>
         <Col span={24}>
-          <div className=" footer">
-            {/* Món đã chọn:{" "}
-        <div>
-          {dataBill?.detail?.map((item) => {
-            return (
-              <div>
-                <p>Tên món: {item?.name}</p>
-                <p>Số lượng: {item?.amount}</p>
-              </div>
-            );
-          })}
-        </div> */}
+          {isDat && (
+            <Button className="app-enabled " onClick={() => handleReset()}>
+              Đặt tiếp tại đây!
+            </Button>
+          )}
 
-            {isDat && (
-              <Button className="app-enabled " onClick={() => handleReset()}>
-                Đặt tiếp tại đây!
-              </Button>
-            )}
-
-            <Popconfirm
-              title="Bạn chắc chắn đặt không?"
-              onConfirm={() => handleDat()}
-              disabled={total_price == 0}
-            >
-              <Button className="button-order" type="primary">
-                Đặt
-              </Button>
-            </Popconfirm>
-            <p style={{ float: "right", marginRight: 10 }}>
-              Tổng:{" "}
-              {total_price?.toLocaleString("vi-VN", {
-                style: "currency",
-                currency: "VND",
-              })}
-            </p>
-            <Table
-              columns={columns}
-              dataSource={dataBillTable}
-              rowKey={(record) => record.id}
-              locale={{ emptyText: "Chưa có sản phẩm nào được thêm vào" }}
-              pagination={false}
-              rowClassName="css-table-antd"
-              scroll={{ x: true }}
-            />
-          </div>
+          <Popconfirm
+            title="Bạn chắc chắn đặt không?"
+            onConfirm={() => handleDat()}
+            disabled={total_price == 0}
+          >
+            <Button className="button-order" type="primary">
+              Đặt
+            </Button>
+          </Popconfirm>
+          <p style={{ float: "right", marginRight: 10 }}>
+            Tổng:{" "}
+            {total_price?.toLocaleString("vi-VN", {
+              style: "currency",
+              currency: "VND",
+            })}
+          </p>
+          <Table
+            columns={columns}
+            dataSource={dataBillTable}
+            rowKey={(record) => record.id}
+            locale={{ emptyText: "Chưa có sản phẩm nào được thêm vào" }}
+            pagination={false}
+            rowClassName="css-table-antd"
+            scroll={{ x: true }}
+          />
         </Col>
       </Row>
-    </>
+    </div>
   );
 };
 

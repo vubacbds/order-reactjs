@@ -4,6 +4,8 @@ import { Button, Checkbox } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import ProductAdd from "./productadd";
+import ProductUpdate from "./productupdate";
+import UserAPI from "../services/userAPI";
 
 import { DeleteOutlined, FormOutlined } from "@ant-design/icons";
 import { delete_product } from "../action/product";
@@ -20,6 +22,7 @@ const ProductList = () => {
 
   //Hiện model update product
   const [visibleProductUpdate, setVisibleProductUpdate] = useState(false);
+  const [productUpdate, setProductUpdate] = useState();
 
   //Thông báo
   const ProductDeleteSuccess = () => {
@@ -67,6 +70,7 @@ const ProductList = () => {
               onClick={() => {
                 // dispatch(getcategory_id(record._id));
                 setVisibleProductUpdate(true);
+                setProductUpdate(record);
               }}
               type="link"
             >
@@ -78,47 +82,67 @@ const ProductList = () => {
     },
   ];
 
-  return (
-    <div
-      style={{
-        flexDirection: "row",
-        display: "inline",
-      }}
-    >
-      <Button
-        onClick={() => {
-          localStorage.clear();
-          navigate("/");
-        }}
-      >
-        Đăng xuất
-      </Button>
-      <Button
-        onClick={() => {
-          setVisibleProductAdd(true);
-        }}
-        style={{ margin: "10px 20px", fontWeight: "bold", float: "right" }}
-        type="primary"
-      >
-        + Thêm sản phẩm
-      </Button>
-      <Table
-        scroll={{ x: true }}
-        columns={columns}
-        rowKey={(record) => record._id}
-        dataSource={dataProduct}
-        style={{ margin: "0px 20px" }}
-      />
+  //Để kiểm tra khi admin đăng nhập mới được vào trang list product
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    const dataUser = {
+      username: localStorage.getItem("username"),
+      password: localStorage.getItem("password"),
+    };
+    UserAPI.verify(dataUser)
+      .then((res) => {
+        if (res.result) setIsAdmin(true);
+        else navigate("/1");
+      })
+      .catch(() => {
+        navigate("/1");
+      });
+  }, []);
 
-      <ModalProductAdd
-        visible={visibleProductAdd}
-        setVisible={setVisibleProductAdd}
-      />
-      <ModalProductUpdate
-        visible={visibleProductUpdate}
-        setVisible={setVisibleProductUpdate}
-      />
-    </div>
+  return (
+    isAdmin && (
+      <div
+        style={{
+          flexDirection: "row",
+          display: "inline",
+        }}
+      >
+        <Button
+          onClick={() => {
+            localStorage.clear();
+            navigate("/admin/login");
+          }}
+        >
+          Đăng xuất
+        </Button>
+        <Button
+          onClick={() => {
+            setVisibleProductAdd(true);
+          }}
+          style={{ margin: "10px 20px", fontWeight: "bold", float: "right" }}
+          type="primary"
+        >
+          + Thêm sản phẩm
+        </Button>
+        <Table
+          scroll={{ x: true }}
+          columns={columns}
+          rowKey={(record) => record._id}
+          dataSource={dataProduct}
+          style={{ margin: "0px 20px" }}
+        />
+
+        <ModalProductAdd
+          visible={visibleProductAdd}
+          setVisible={setVisibleProductAdd}
+        />
+        <ModalProductUpdate
+          visible={visibleProductUpdate}
+          setVisible={setVisibleProductUpdate}
+          productUpdate={productUpdate}
+        />
+      </div>
+    )
   );
 };
 
@@ -181,7 +205,7 @@ const ModalProductUpdate = (props) => {
         onCancel={handleCancel}
         footer={null}
       >
-        <ProductAdd />
+        <ProductUpdate productUpdate={props.productUpdate} />
       </Modal>
     </>
   );

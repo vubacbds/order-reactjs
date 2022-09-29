@@ -18,8 +18,7 @@ import { UpCircleOutlined } from "@ant-design/icons";
 //antd
 import { BackTop, Spin } from "antd";
 //component
-import Header from "./components/header";
-import Footer from "./components/footer";
+import AdminHome from "./components/adminhome";
 import Login from "./components/login";
 import ProductList from "./components/productlist";
 
@@ -35,7 +34,6 @@ function App() {
   return (
     <>
       <div className="App" id="app">
-        <Header />
         <Routes>
           <Route
             path="/:ban"
@@ -53,16 +51,9 @@ function App() {
           />
 
           <Route path="/admin/login" element={<Login />} />
-          <Route
-            path="/admin/product-list"
-            element={
-              localStorage.getItem("accessToken") ? (
-                <ProductList />
-              ) : (
-                <Navigate to="/1" replace />
-              )
-            }
-          />
+          <Route path="/admin/product-list" element={<ProductList />} />
+
+          <Route path="/adminhome" element={<AdminHome />} />
           <Route path="/" element={<Navigate to="/1" replace />} />
           <Route path="*" element={<h2> Not found</h2>} />
         </Routes>
@@ -73,7 +64,6 @@ function App() {
             <UpCircleOutlined />
           </div>
         </BackTop>
-        <Footer />
       </div>
     </>
   );

@@ -15,6 +15,8 @@ import {
   PlusSquareOutlined,
 } from "@ant-design/icons";
 import { useFetcher } from "react-router-dom";
+import Header from "./header";
+import Footer from "./footer";
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -37,9 +39,17 @@ const Product = () => {
 
   return (
     <div>
+      <Header />
       <Row>
         <Col xs={0} sm={0} md={6} lg={6} xl={6}></Col>
-        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+        <Col
+          xs={24}
+          sm={24}
+          md={12}
+          lg={12}
+          xl={12}
+          className="scroll-product-order"
+        >
           {dataProduct?.map((item, index) => {
             return (
               <Row
@@ -48,7 +58,7 @@ const Product = () => {
                 className="product-hover"
               >
                 <Col span={6} className="app-enabled">
-                  <Carousel slide={false} interval={10000}>
+                  <Carousel slide={false} interval={12000}>
                     {item.images.map((i, index) => {
                       return (
                         <Carousel.Item key={index}>
@@ -231,6 +241,7 @@ const Product = () => {
         </Col>
         <Col xs={0} sm={0} md={6} lg={6} xl={6}></Col>
       </Row>
+      <Footer />
     </div>
   );
 };
