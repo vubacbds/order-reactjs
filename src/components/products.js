@@ -38,8 +38,6 @@ const Product = () => {
   }, []);
 
   //Hàm xử lý tăng
-  var oldArray = dataBill?.detail;
-  console.log(oldArray);
   const handleTang = (item) => {
     //Tăng số lượng trên giao diện khi chọn
     dispatch(
@@ -66,10 +64,10 @@ const Product = () => {
       };
 
       let newArray = [];
-      if (oldArray.length == 0) {
+      if (dataBill?.detail?.length == 0) {
         newArray = [createDetail];
       } else {
-        newArray = [createDetail, ...oldArray];
+        newArray = [createDetail, ...dataBill?.detail];
       }
 
       dispatch(
