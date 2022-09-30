@@ -37,6 +37,115 @@ const Product = () => {
     );
   }, []);
 
+  //Hàm xử lý tăng
+  var oldArray = dataBill?.detail;
+  console.log(oldArray);
+  const handleTang = (item) => {
+    //Tăng số lượng trên giao diện khi chọn
+    dispatch(
+      update_product(item._id, {
+        amount: item.amount + 1,
+      })
+    );
+
+    //Kiểm tra sản phẩm đã có trong bill chưa
+    const isHave =
+      dataBill?.detail?.length > 0
+        ? dataBill?.detail?.find((i) => {
+            return i?.id == item._id;
+          })
+        : false;
+
+    //Nếu chưa có thì thêm vào, có thì sửa số lượng
+    if (!isHave) {
+      const createDetail = {
+        id: item._id,
+        name: item.name,
+        amount: 1,
+        price: item.price,
+      };
+
+      const newArray = [createDetail, ...oldArray];
+      dispatch(
+        update_bill({
+          table: `Bàn ${params.ban}`,
+          note: "Nhanh nhé!",
+          detail: newArray,
+          total_price: 0,
+          status: false,
+        })
+      );
+    } else {
+      const updateDetail = dataBill?.detail?.map((i) => {
+        if (i.id == item._id) {
+          return (i = {
+            id: item._id,
+            name: item.name,
+            amount: i.amount + 1,
+            price: (i.amount + 1) * item.price,
+          });
+        } else return i;
+      });
+
+      dispatch(
+        update_bill({
+          table: `Bàn ${params.ban}`,
+          note: "Nhanh nhé!",
+          detail: updateDetail,
+          total_price: 0,
+          status: false,
+        })
+      );
+    }
+  };
+
+  //Hàm xử lý giảm
+  const handleGiam = (item) => {
+    //Giảm số lượng trên giao diện khi chọn và amout ko được âm
+    item.amount > 0 &&
+      dispatch(
+        update_product(item._id, {
+          amount: item.amount - 1,
+        })
+      );
+
+    //Kiểm tra sản phẩm đã có trong bill chưa
+    const isHave =
+      dataBill?.detail.length > 0
+        ? dataBill?.detail?.find((i) => {
+            return i?.id == item._id;
+          })
+        : false;
+
+    //Nếu chưa có thì ko làm gì, có thì sửa số lụợng
+    if (!isHave) {
+      return;
+    } else {
+      if (item.amount > 0) {
+        const updateDetail = dataBill?.detail?.map((i) => {
+          if (i.id == item._id) {
+            return (i = {
+              id: item._id,
+              name: item.name,
+              amount: i.amount - 1,
+              price: (i.amount - 1) * item.price,
+            });
+          } else return i;
+        });
+
+        dispatch(
+          update_bill({
+            table: `Bàn ${params.ban}`,
+            note: "Nhanh nhé!",
+            detail: updateDetail,
+            total_price: 0,
+            status: false,
+          })
+        );
+      }
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -92,57 +201,10 @@ const Product = () => {
                   <div
                     style={{
                       display: "flex",
-                      marginTop: 36,
+                      marginTop: 30,
                     }}
                   >
-                    <Button
-                      type="link"
-                      onClick={() => {
-                        //Giảm số lượng trên giao diện khi chọn và amout ko được âm
-                        item.amount > 0 &&
-                          dispatch(
-                            update_product(item._id, {
-                              amount: item.amount - 1,
-                            })
-                          );
-
-                        //Kiểm tra sản phẩm đã có trong bill chưa
-                        const isHave =
-                          dataBill?.detail.length > 0
-                            ? dataBill?.detail?.find((i) => {
-                                return i?.id == item._id;
-                              })
-                            : false;
-
-                        //Nếu chưa có thì ko làm gì, có thì sửa số lụợng
-                        if (!isHave) {
-                          return;
-                        } else {
-                          if (item.amount > 0) {
-                            const updateDetail = dataBill?.detail?.map((i) => {
-                              if (i.id == item._id) {
-                                return (i = {
-                                  id: item._id,
-                                  name: item.name,
-                                  amount: i.amount - 1,
-                                  price: (i.amount - 1) * item.price,
-                                });
-                              } else return i;
-                            });
-
-                            dispatch(
-                              update_bill({
-                                table: `Bàn ${params.ban}`,
-                                note: "Nhanh nhé!",
-                                detail: updateDetail,
-                                total_price: 0,
-                                status: false,
-                              })
-                            );
-                          }
-                        }
-                      }}
-                    >
+                    <Button type="link" onClick={() => handleGiam(item)}>
                       <MinusCircleOutlined
                         style={{
                           fontSize: "24px",
@@ -164,68 +226,7 @@ const Product = () => {
 
                     <Button
                       type="link"
-                      onClick={() => {
-                        //Tăng số lượng trên giao diện khi chọn
-                        dispatch(
-                          update_product(item._id, {
-                            amount: item.amount + 1,
-                          })
-                        );
-
-                        //Kiểm tra sản phẩm đã có trong bill chưa
-                        const isHave =
-                          dataBill?.detail?.length > 0
-                            ? dataBill?.detail?.find((i) => {
-                                return i?.id == item._id;
-                              })
-                            : false;
-
-                        //Nếu chưa có thì thêm vào, có thì sửa số lượng
-                        if (!isHave) {
-                          const createDetail = {
-                            id: item._id,
-                            name: item.name,
-                            amount: 1,
-                            price: item.price,
-                          };
-
-                          var oldArray = dataBill?.detail;
-
-                          const newArray = [createDetail, ...oldArray];
-
-                          console.log(newArray);
-                          dispatch(
-                            update_bill({
-                              table: `Bàn ${params.ban}`,
-                              note: "Nhanh nhé!",
-                              detail: newArray,
-                              total_price: 0,
-                              status: false,
-                            })
-                          );
-                        } else {
-                          const updateDetail = dataBill?.detail?.map((i) => {
-                            if (i.id == item._id) {
-                              return (i = {
-                                id: item._id,
-                                name: item.name,
-                                amount: i.amount + 1,
-                                price: (i.amount + 1) * item.price,
-                              });
-                            } else return i;
-                          });
-
-                          dispatch(
-                            update_bill({
-                              table: `Bàn ${params.ban}`,
-                              note: "Nhanh nhé!",
-                              detail: updateDetail,
-                              total_price: 0,
-                              status: false,
-                            })
-                          );
-                        }
-                      }}
+                      onClick={() => handleTang(item)}
                       key={index}
                     >
                       <PlusCircleOutlined
