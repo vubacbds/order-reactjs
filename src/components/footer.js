@@ -19,6 +19,8 @@ const Footer = () => {
     return total + currentValue.price;
   }, 0);
 
+  console.log(total_price);
+
   //Xóa bill
   const deleteBill = (id) => {
     const updateDetail = dataBill?.detail?.filter((i) => {
@@ -154,10 +156,11 @@ const Footer = () => {
           </Popconfirm>
           <p style={{ float: "right", marginRight: 10 }}>
             Tổng:{" "}
-            {total_price?.toLocaleString("vi-VN", {
-              style: "currency",
-              currency: "VND",
-            })}
+            {total_price &&
+              total_price?.toLocaleString("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              })}
           </p>
           {isDat && (
             <Button
