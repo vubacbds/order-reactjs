@@ -28,7 +28,15 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(get_product());
-    dispatch(get_bill());
+    dispatch(
+      get_bill({
+        table: "",
+        note: "",
+        detail: [],
+        total_price: 0,
+        status: false,
+      })
+    );
   }, []);
 
   return (

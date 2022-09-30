@@ -64,7 +64,7 @@ const Product = () => {
       };
 
       let newArray = [];
-      if (dataBill?.detail?.length == 0) {
+      if (dataBill && dataBill.detail && dataBill?.detail?.length == 0) {
         newArray = [createDetail];
       } else {
         newArray = [createDetail, ...dataBill?.detail];
