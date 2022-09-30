@@ -189,8 +189,11 @@ const Product = () => {
                             price: item.price,
                           };
 
-                          let oldArray = dataBill?.detail;
+                          var oldArray = dataBill?.detail;
+
                           const newArray = [createDetail, ...oldArray];
+
+                          console.log(newArray);
                           dispatch(
                             update_bill({
                               table: `Bàn ${params.ban}`,
