@@ -23,7 +23,7 @@ import Login from "./components/login";
 import ProductList from "./components/productlist";
 
 function App() {
-  const Product = React.lazy(() => import("./components/product"));
+  const Product = React.lazy(() => import("./components/product.js"));
 
   const dispatch = useDispatch();
   useEffect(() => {
