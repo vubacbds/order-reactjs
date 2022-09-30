@@ -205,14 +205,15 @@ const Product = () => {
                   <div
                     style={{
                       display: "flex",
-                      marginTop: 10,
+                      marginTop: 20,
+                      height: 46,
                     }}
                   >
                     <Button type="link" onClick={() => handleGiam(item)}>
                       <MinusCircleOutlined
                         style={{
                           fontSize: "24px",
-                          color: "gray",
+                          color: "#C9C9C9",
                           flexGrow: 1,
                         }}
                       />
@@ -223,6 +224,8 @@ const Product = () => {
                         flexGrow: 2,
                         fontStyle: "bold",
                         textAlign: "center",
+                        color: "#CC9C9C9",
+                        borderRadius: 10,
                       }}
                     >
                       {item.amount}
@@ -236,7 +239,7 @@ const Product = () => {
                       <PlusCircleOutlined
                         style={{
                           fontSize: "24px",
-                          color: "gray",
+                          color: "#C9C9C9",
                           flexGrow: 1,
                         }}
                       />

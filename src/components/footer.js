@@ -143,12 +143,6 @@ const Footer = () => {
     <div className="footer scroll-footer-order">
       <Row>
         <Col span={24}>
-          {isDat && (
-            <Button className="app-enabled " onClick={() => handleReset()}>
-              Đặt tiếp tại đây!
-            </Button>
-          )}
-
           <Popconfirm
             title="Bạn chắc chắn đặt không?"
             onConfirm={() => handleDat()}
@@ -165,6 +159,17 @@ const Footer = () => {
               currency: "VND",
             })}
           </p>
+          {isDat && (
+            <Button
+              className="app-enabled "
+              type="primary"
+              ghost
+              onClick={() => handleReset()}
+              style={{ float: "right", marginRight: 10 }}
+            >
+              Đặt tiếp tại đây!
+            </Button>
+          )}
           <Table
             columns={columns}
             dataSource={dataBillTable}

@@ -109,7 +109,6 @@
 .app-enabled {
   pointer-events: all;
   cursor: default;
-  opacity: 1;
 }
 
 .scroll-footer-order {
