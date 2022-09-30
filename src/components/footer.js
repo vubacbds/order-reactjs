@@ -64,7 +64,7 @@ const Footer = () => {
       .then(() => {
         BillAddSuccess();
         alert(
-          "Quý khách đã đặt hàng thành công! Vui lòng chờ để nhân viên giao nhé"
+          "Cảm ơn Quý khách đã đặt nước thành công! Ít phút nữa nhân viên đưa tới bàn nhé ạ"
         );
         document.getElementById("app")?.classList.add("app-disabled");
         setIsDat(true);
@@ -107,7 +107,7 @@ const Footer = () => {
       render: (_, record) => {
         return (
           <Popconfirm
-            title="Bạn chắc chắn xóa?"
+            title={`Bạn chắc chắn xóa "${record.name}"?`}
             onConfirm={() => deleteBill(record.id)}
           >
             <Button type="link">
