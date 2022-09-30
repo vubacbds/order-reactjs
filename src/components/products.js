@@ -167,7 +167,7 @@ const Product = () => {
             return (
               <Row
                 key={item._id}
-                style={{ margin: "6px 6px" }}
+                style={{ margin: "4px 4px" }}
                 className="product-hover"
               >
                 <Col span={6} className="app-enabled">
