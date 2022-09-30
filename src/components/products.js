@@ -65,7 +65,13 @@ const Product = () => {
         price: item.price,
       };
 
-      const newArray = [createDetail, ...oldArray];
+      let newArray = [];
+      if (oldArray.length == 0) {
+        newArray = [createDetail];
+      } else {
+        newArray = [createDetail, ...oldArray];
+      }
+
       dispatch(
         update_bill({
           table: `Bàn ${params.ban}`,
