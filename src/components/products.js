@@ -167,7 +167,7 @@ const Product = () => {
             return (
               <Row
                 key={item._id}
-                style={{ margin: "8px 8px" }}
+                style={{ margin: "6px 6px" }}
                 className="product-hover"
               >
                 <Col span={6} className="app-enabled">
@@ -179,7 +179,7 @@ const Product = () => {
                             className="d-block w-100"
                             src={i}
                             alt="First slide"
-                            style={{ height: 100, width: 100 }}
+                            style={{ height: 88, width: 88 }}
                           />
                         </Carousel.Item>
                       );
@@ -201,11 +201,11 @@ const Product = () => {
                     })}
                   </p>
                 </Col>
-                <Col span={8} style={{ borderLeft: "1px solid gray" }}>
+                <Col span={8}>
                   <div
                     style={{
                       display: "flex",
-                      marginTop: 30,
+                      marginTop: 10,
                     }}
                   >
                     <Button type="link" onClick={() => handleGiam(item)}>
