@@ -64,10 +64,10 @@ const Product = () => {
       };
 
       let newArray = [];
-      if (dataBill && dataBill.detail && dataBill?.detail?.length == 0) {
-        newArray = [createDetail];
-      } else {
+      if (dataBill?.detail?.length > 0) {
         newArray = [createDetail, ...dataBill?.detail];
+      } else {
+        newArray = [createDetail];
       }
 
       dispatch(
