@@ -204,7 +204,7 @@ const ProductAdd = (props) => {
             },
           ]}
         >
-          <Input showCount maxLength={50} />
+          <Input showCount maxLength={30} />
         </Form.Item>
 
         <Form.Item

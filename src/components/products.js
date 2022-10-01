@@ -190,19 +190,26 @@ const Product = () => {
                     </Carousel>
                   </Col>
                   <Col span={10}>
-                    <b>{item.name}</b>
-                    <p
+                    <div
                       style={{
-                        color: "red",
-                        fontWeight: "bold",
-                        fontSize: 14,
+                        textAlign: "left",
+                        margin: 8,
                       }}
                     >
-                      {item.price.toLocaleString("vi-VN", {
-                        style: "currency",
-                        currency: "VND",
-                      })}
-                    </p>
+                      <b>{item.name}</b>
+                      <p
+                        style={{
+                          color: "red",
+                          fontWeight: "bold",
+                          fontSize: 14,
+                        }}
+                      >
+                        {item.price.toLocaleString("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                        })}
+                      </p>
+                    </div>
                   </Col>
                   <Col span={8}>
                     <div
