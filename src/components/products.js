@@ -153,106 +153,110 @@ const Product = () => {
   return (
     <div>
       <Header />
-      <Row>
-        <Col xs={0} sm={0} md={6} lg={6} xl={6}></Col>
-        <Col
-          xs={24}
-          sm={24}
-          md={12}
-          lg={12}
-          xl={12}
-          className="scroll-product-order"
-        >
-          {dataProduct?.map((item, index) => {
-            return (
-              <Row
-                key={item._id}
-                style={{ margin: "4px 4px" }}
-                className="product-hover"
-              >
-                <Col span={6} className="app-enabled">
-                  <Carousel slide={false} interval={12000}>
-                    {item.images.map((i, index) => {
-                      return (
-                        <Carousel.Item key={index}>
-                          <img
-                            className="d-block w-100"
-                            src={i}
-                            alt="First slide"
-                            style={{ height: 88, width: 88 }}
-                          />
-                        </Carousel.Item>
-                      );
-                    })}
-                  </Carousel>
-                </Col>
-                <Col span={10}>
-                  <b>{item.name}</b>
-                  <p
-                    style={{
-                      color: "red",
-                      fontWeight: "bold",
-                      fontSize: 14,
-                    }}
-                  >
-                    {item.price.toLocaleString("vi-VN", {
-                      style: "currency",
-                      currency: "VND",
-                    })}
-                  </p>
-                </Col>
-                <Col span={8}>
-                  <div
-                    style={{
-                      display: "flex",
-                      marginTop: 20,
-                      height: 52,
-                    }}
-                  >
-                    <Button type="link" onClick={() => handleGiam(item)}>
-                      <MinusCircleOutlined
-                        style={{
-                          fontSize: "22px",
-                          color: "#C9C9C9",
-                          flexGrow: 1,
-                        }}
-                      />
-                    </Button>
-
-                    <Button
+      <div style={{ height: 424, background: "red" }}>
+        <Row>
+          <Col xs={0} sm={0} md={6} lg={6} xl={6}></Col>
+          <Col
+            xs={24}
+            sm={24}
+            md={12}
+            lg={12}
+            xl={12}
+            className="scroll-product-order"
+          >
+            {dataProduct?.map((item, index) => {
+              return (
+                <Row
+                  key={item._id}
+                  style={{ margin: "4px 4px" }}
+                  className="product-hover"
+                >
+                  <Col span={6} className="app-enabled">
+                    <Carousel slide={false} interval={12000}>
+                      {item.images.map((i, index) => {
+                        return (
+                          <Carousel.Item key={index}>
+                            <img
+                              className="d-block w-100"
+                              src={i}
+                              alt="First slide"
+                              style={{ height: 88, width: 88 }}
+                            />
+                          </Carousel.Item>
+                        );
+                      })}
+                    </Carousel>
+                  </Col>
+                  <Col span={10}>
+                    <b>{item.name}</b>
+                    <p
                       style={{
-                        flexGrow: 2,
-                        fontStyle: "bold",
-                        textAlign: "center",
-                        color: "#CC9C9C9",
-                        borderRadius: 10,
+                        color: "red",
+                        fontWeight: "bold",
+                        fontSize: 14,
                       }}
                     >
-                      {item.amount}
-                    </Button>
-
-                    <Button
-                      type="link"
-                      onClick={() => handleTang(item)}
-                      key={index}
+                      {item.price.toLocaleString("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                      })}
+                    </p>
+                  </Col>
+                  <Col span={8}>
+                    <div
+                      style={{
+                        display: "flex",
+                        marginTop: 20,
+                        height: 52,
+                      }}
                     >
-                      <PlusCircleOutlined
+                      <Button type="link" onClick={() => handleGiam(item)}>
+                        <MinusCircleOutlined
+                          style={{
+                            fontSize: "22px",
+                            color: "#C9C9C9",
+                            flexGrow: 1,
+                          }}
+                        />
+                      </Button>
+
+                      <Button
                         style={{
-                          fontSize: "22px",
-                          color: "#C9C9C9",
-                          flexGrow: 1,
+                          flexGrow: 2,
+                          fontStyle: "bold",
+                          textAlign: "center",
+                          color: "#CC9C9C9",
+                          borderRadius: 10,
                         }}
-                      />
-                    </Button>
-                  </div>
-                </Col>
-              </Row>
-            );
-          })}
-        </Col>
-        <Col xs={0} sm={0} md={6} lg={6} xl={6}></Col>
-      </Row>
-      <Footer />
+                      >
+                        {item.amount}
+                      </Button>
+
+                      <Button
+                        type="link"
+                        onClick={() => handleTang(item)}
+                        key={index}
+                      >
+                        <PlusCircleOutlined
+                          style={{
+                            fontSize: "22px",
+                            color: "#C9C9C9",
+                            flexGrow: 1,
+                          }}
+                        />
+                      </Button>
+                    </div>
+                  </Col>
+                </Row>
+              );
+            })}
+          </Col>
+          <Col xs={0} sm={0} md={6} lg={6} xl={6}></Col>
+        </Row>
+      </div>
+      <div style={{ height: 100, background: "green" }}>
+        <Footer />
+      </div>
     </div>
   );
 };
