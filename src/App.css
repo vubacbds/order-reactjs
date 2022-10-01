@@ -128,7 +128,7 @@
 }
 
 .scroll-product-order-small {
-  max-height: 360px;
+  max-height: 260px;
   overflow: auto;
   overflow: -moz-scrollbars-none;
   -ms-overflow-style: none;
