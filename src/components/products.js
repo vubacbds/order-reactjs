@@ -40,11 +40,6 @@ const Product = () => {
         status: false,
       })
     );
-
-    var bb = "Màn hình lớn hơn";
-    if (isMobile) bb = "màn hình bé hơn";
-
-    alert(bb);
   }, []);
 
   //Hàm xử lý tăng
