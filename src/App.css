@@ -48,16 +48,7 @@
   box-shadow: 1px 1px 1px grey;
 }
 
-.footer {
-  height: 100;
-  /* background: #F7FEFF; */
-  text-align: left;
 
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-}
 
 /* Padding table antd */
 .footer .ant-table-tbody {
@@ -116,6 +107,14 @@
   overflow: auto;
   overflow: -moz-scrollbars-none;
   -ms-overflow-style: none;
+
+  height: 166px;
+  text-align: left;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  margin-top: 10px;
 }
 
 .scroll-footer-order::-webkit-scrollbar {

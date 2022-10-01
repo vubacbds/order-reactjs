@@ -153,17 +153,10 @@ const Product = () => {
   return (
     <div>
       <Header />
-      <div style={{ height: 424, background: "red" }}>
+      <div className="scroll-product-order">
         <Row>
           <Col xs={0} sm={0} md={6} lg={6} xl={6}></Col>
-          <Col
-            xs={24}
-            sm={24}
-            md={12}
-            lg={12}
-            xl={12}
-            className="scroll-product-order"
-          >
+          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
             {dataProduct?.map((item, index) => {
               return (
                 <Row
@@ -254,9 +247,7 @@ const Product = () => {
           <Col xs={0} sm={0} md={6} lg={6} xl={6}></Col>
         </Row>
       </div>
-      <div style={{ height: 100, background: "green" }}>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };
