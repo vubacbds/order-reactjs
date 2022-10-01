@@ -127,6 +127,13 @@
   -ms-overflow-style: none;
 }
 
+.scroll-product-order-small {
+  max-height: 360px;
+  overflow: auto;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
+
 .scroll-product-order::-webkit-scrollbar {
   width: 0 !important;
   display: none;

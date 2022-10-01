@@ -17,12 +17,17 @@ import {
 import { useFetcher } from "react-router-dom";
 import Header from "./header";
 import Footer from "./footer";
+import { UseViewport } from "../utils/sizescreen";
 
 const Product = () => {
   const dispatch = useDispatch();
   const dataProduct = useSelector((state) => state.product.data);
   const dataBill = useSelector((state) => state.bill.data);
   const params = useParams();
+
+  //Sử dụng CostumHook kiểm tra kích thước màn hình để hiển thị cho đúng reponsive
+  const viewPort = UseViewport();
+  const isMobile = viewPort.height <= 700;
 
   //Khi chạy tạo bill rỗng
   useEffect(() => {
@@ -157,7 +162,11 @@ const Product = () => {
           <Header />
         </Col>
       </Row>
-      <div className="scroll-product-order">
+      <div
+        className={
+          isMobile ? "scroll-product-order-small" : "scroll-product-order"
+        }
+      >
         <Row>
           <Col xs={0} sm={0} md={6} lg={6} xl={6}></Col>
           <Col xs={24} sm={24} md={12} lg={12} xl={12}>
