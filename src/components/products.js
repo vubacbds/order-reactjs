@@ -27,7 +27,7 @@ const Product = () => {
 
   //Sử dụng CostumHook kiểm tra kích thước màn hình để hiển thị cho đúng reponsive
   const viewPort = UseViewport();
-  const isMobile = viewPort.height <= 2000;
+  const isMobile = viewPort.height <= 700;
 
   //Khi chạy tạo bill rỗng
   useEffect(() => {

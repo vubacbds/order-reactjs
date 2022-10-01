@@ -2,15 +2,15 @@ import React from "react";
 
 //CostumHook kiểm tra kích thước màn hình để hiển thị cho đúng reponsive
 const UseViewport = () => {
-  const [width, setWidth] = React.useState(window.innerWidth);
+  const [height, setHeight] = React.useState(window.innerHeight);
 
   React.useEffect(() => {
-    const handleWindowResize = () => setWidth(window.innerWidth);
+    const handleWindowResize = () => setHeight(window.innerHeight);
     window.addEventListener("resize", handleWindowResize);
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
 
-  return { width };
+  return { height };
 };
 
 export { UseViewport };
