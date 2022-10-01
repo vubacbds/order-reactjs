@@ -152,7 +152,11 @@ const Product = () => {
 
   return (
     <div>
-      <Header />
+      <Row>
+        <Col span={24}>
+          <Header />
+        </Col>
+      </Row>
       <div className="scroll-product-order">
         <Row>
           <Col xs={0} sm={0} md={6} lg={6} xl={6}></Col>
@@ -247,7 +251,11 @@ const Product = () => {
           <Col xs={0} sm={0} md={6} lg={6} xl={6}></Col>
         </Row>
       </div>
-      <Footer />
+      <Row>
+        <Col span={24}>
+          <Footer />
+        </Col>
+      </Row>
     </div>
   );
 };
