@@ -157,11 +157,7 @@ const Product = () => {
 
   return (
     <div>
-      <Row>
-        <Col span={24}>
-          <Header />
-        </Col>
-      </Row>
+      <Header />
       <div
         className={
           isMobile ? "scroll-product-order-small" : "scroll-product-order"
@@ -260,11 +256,7 @@ const Product = () => {
           <Col xs={0} sm={0} md={6} lg={6} xl={6}></Col>
         </Row>
       </div>
-      <Row>
-        <Col span={24}>
-          <Footer />
-        </Col>
-      </Row>
+      <Footer />
     </div>
   );
 };

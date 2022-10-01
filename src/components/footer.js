@@ -19,8 +19,6 @@ const Footer = () => {
     return total + currentValue.price;
   }, 0);
 
-  console.log(total_price);
-
   //Xóa bill
   const deleteBill = (id) => {
     const updateDetail = dataBill?.detail?.filter((i) => {
@@ -141,6 +139,9 @@ const Footer = () => {
     //Reset lại số lượng sp về ko
     dispatch(get_product());
   };
+
+  //Số 0
+  let number0 = 0;
   return (
     <div className="footer scroll-footer-order">
       <Row>
@@ -156,11 +157,15 @@ const Footer = () => {
           </Popconfirm>
           <p style={{ float: "right", marginRight: 10 }}>
             Tổng:{" "}
-            {total_price &&
-              total_price?.toLocaleString("vi-VN", {
-                style: "currency",
-                currency: "VND",
-              })}
+            {total_price > 0
+              ? total_price?.toLocaleString("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                })
+              : number0.toLocaleString("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                })}
           </p>
           {isDat && (
             <Button
