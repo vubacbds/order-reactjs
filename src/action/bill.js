@@ -40,5 +40,27 @@ const delete_bill = (id) => ({
   },
 });
 
+const add_bill_all = (data) => ({
+  type: "ADD_BILL_ALL",
+  payload: {
+    data,
+  },
+});
+
+const update_bill_all = (id, data) => ({
+  type: "UPDATE_BILL_ALL",
+  payload: {
+    id,
+    data,
+  },
+});
+
 export default get_bill_all;
-export { get_bill, add_bill, update_bill, delete_bill };
+export {
+  get_bill,
+  add_bill,
+  update_bill,
+  delete_bill,
+  add_bill_all,
+  update_bill_all,
+};

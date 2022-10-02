@@ -8,6 +8,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import get_product from "./action/product";
 import get_bill from "./action/bill";
+import get_bill_all from "./action/bill";
 //Thông báo toast
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,6 +22,8 @@ import { BackTop, Spin } from "antd";
 import AdminHome from "./components/adminhome";
 import Login from "./components/login";
 import ProductList from "./components/productlist";
+import Demo from "./components/demo";
+import Bill from "./components/bill";
 
 function App() {
   const Product = React.lazy(() => import("./components/products"));
@@ -28,15 +31,9 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(get_product());
-    dispatch(
-      get_bill({
-        table: "",
-        note: "",
-        detail: [],
-        total_price: 0,
-        status: false,
-      })
-    );
+    dispatch(get_bill());
+
+    dispatch(get_bill_all());
   }, []);
 
   return (
@@ -58,6 +55,8 @@ function App() {
             }
           />
 
+          <Route path="/bill" element={<Bill />} />
+          <Route path="/demo" element={<Demo />} />
           <Route path="/admin/login" element={<Login />} />
           <Route path="/admin/product-list" element={<ProductList />} />
 

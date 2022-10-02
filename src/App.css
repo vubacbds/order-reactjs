@@ -138,3 +138,39 @@
   width: 0 !important;
   display: none;
 }
+
+
+
+.table-print {
+  padding: 0;
+  border: none;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  width: 1170px;
+  margin: 50px auto 10px;
+}
+.table-print td {
+  padding: 0;
+  border: none;
+  border-collapse: collapse;
+}
+.table-print tr>td
+ {
+  border: 1px solid #ddd;
+  padding: 8px;
+  /* line-height: 1.42857143; */
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+  font-weight: normal;
+  font-size: 30px !important;
+
+}
+
+.table-print tr>th  {
+  border: 1px solid #ddd;
+  padding: 8px;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+  font-size: 30px !important;
+
+}

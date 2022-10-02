@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, Popconfirm, Row, Table } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import { update_bill } from "../action/bill";
+import { add_bill_all, update_bill, update_bill_all } from "../action/bill";
 import get_product, { update_product } from "../action/product";
 import BillAPI from "../services/billAPI";
 import { toast } from "react-toastify";
@@ -12,6 +12,8 @@ const Footer = () => {
   const dispatch = useDispatch();
   const dataProduct = useSelector((state) => state.product.data);
   const dataBill = useSelector((state) => state.bill.data);
+  const dataBillALL = useSelector((state) => state.bill.dataAll);
+
   const dataBillTable = dataBill.detail?.filter((item) => item.amount > 0);
   const navigate = useNavigate();
 
@@ -57,21 +59,51 @@ const Footer = () => {
 
   //Xử lý đặt
   const handleDat = () => {
-    BillAPI.add_bill({
-      ...dataBill,
-      total_price,
-    })
-      .then(() => {
+    //Kiểm tra bàn đặt đã thanh toán chưa
+    const isPay = dataBillALL.find((item) => {
+      return item.table == dataBill.table && !item.status;
+    });
+
+    if (isPay) {
+      //Trường hợp bàn vẫn còn, chưa thành toán và gọi thêm thì thêm vào DB
+      const newDetail = [
+        { name: "------------------------" },
+        ...dataBill.detail,
+      ];
+      const newData = {
+        ...isPay,
+        total_price: isPay.total_price + total_price,
+        detail: [...isPay.detail, ...newDetail],
+        detailTemp: [...dataBill.detail],
+      };
+      BillAPI.update_bill(isPay._id, newData).then(() => {
+        dispatch(update_bill_all(isPay._id, newData));
         BillAddSuccess();
         alert(
           "Cảm ơn Quý khách đã đặt nước thành công! Ít phút nữa nhân viên đưa tới bàn nhé ạ"
         );
         document.getElementById("app")?.classList.add("app-disabled");
         setIsDat(true);
-      })
-      .catch((err) => {
-        BillAddFail(err.response.data.message);
       });
+    } else {
+      //Trường hợp bàn mới thì tạo mới DB
+      BillAPI.add_bill({
+        ...dataBill,
+        total_price,
+      })
+        .then((doc) => {
+          dispatch(add_bill_all(doc));
+          BillAddSuccess();
+          alert(
+            "Cảm ơn Quý khách đã đặt nước thành công! Ít phút nữa nhân viên đưa tới bàn nhé ạ"
+          );
+          document.getElementById("app")?.classList.add("app-disabled");
+          setIsDat(true);
+        })
+        .catch((err) => {
+          BillAddFail(err.response.data.message);
+        });
+    }
   };
 
   //Cột table
