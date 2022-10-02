@@ -55,10 +55,10 @@ function App() {
             }
           />
 
-          <Route path="/bill" element={<Bill />} />
           <Route path="/demo" element={<Demo />} />
           <Route path="/admin/login" element={<Login />} />
           <Route path="/admin/product-list" element={<ProductList />} />
+          <Route path="/admin/bill" element={<Bill />} />
 
           <Route path="/adminhome" element={<AdminHome />} />
           <Route path="/" element={<Navigate to="/1" replace />} />

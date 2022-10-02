@@ -92,10 +92,10 @@ const ProductList = () => {
     UserAPI.verify(dataUser)
       .then((res) => {
         if (res.result) setIsAdmin(true);
-        else navigate("/1");
+        else navigate("/admin/login");
       })
       .catch(() => {
-        navigate("/1");
+        navigate("/admin/login");
       });
   }, []);
 
@@ -107,14 +107,6 @@ const ProductList = () => {
           display: "inline",
         }}
       >
-        <Button
-          onClick={() => {
-            localStorage.clear();
-            navigate("/admin/login");
-          }}
-        >
-          Đăng xuất
-        </Button>
         <Button
           onClick={() => {
             setVisibleProductAdd(true);

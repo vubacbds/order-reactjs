@@ -1,7 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, Popconfirm, Row, Table } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import { add_bill_all, update_bill, update_bill_all } from "../action/bill";
+import get_bill_all, {
+  add_bill_all,
+  update_bill,
+  update_bill_all,
+} from "../action/bill";
 import get_product, { update_product } from "../action/product";
 import BillAPI from "../services/billAPI";
 import { toast } from "react-toastify";
@@ -170,6 +174,9 @@ const Footer = () => {
 
     //Reset lại số lượng sp về ko
     dispatch(get_product());
+
+    //gọi lại tất cả bill
+    dispatch(get_bill_all());
   };
 
   //Số 0
