@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, createRef, useEffect } from "react";
 import { useScreenshot } from "use-react-screenshot"; //Chụp hình ảnh
 import { saveAs } from "file-saver"; //Lưu vào máy
+import moment from "moment"; //Định dạng thời gian
+import { Modal } from "antd";
 
 const Footer = () => {
   const dispatch = useDispatch();
@@ -86,7 +88,7 @@ const Footer = () => {
         dispatch(update_bill_all(isPay._id, newData));
         BillAddSuccess();
         alert(
-          "Cảm ơn Quý khách đã đặt nước thành công! Ít phút nữa nhân viên đưa tới bàn nhé ạ"
+          "Cảm ơn Quý khách đã đặt nước thành công. Ít phút nữa nhân viên đưa tới bàn nhé!"
         );
         document.getElementById("app")?.classList.add("app-disabled");
         setIsDat(true);
@@ -113,6 +115,9 @@ const Footer = () => {
 
     //Chụp hình ảnh
     getImage();
+
+    //ĐÓng modal
+    setVisibleOrder(false);
   };
 
   //Cột table
@@ -182,37 +187,47 @@ const Footer = () => {
 
     //gọi lại tất cả bill
     dispatch(get_bill_all());
+
+    //không chụp
+    setIsScreenShot(false);
   };
 
   //Số 0
   let number0 = 0;
 
+  //Hiện model order
+  const [visibleOrder, setVisibleOrder] = useState(false);
+
   //Chụp hình ảnh
   const refImage = createRef(null);
   const [image, takeScreenshot] = useScreenshot();
-  const getImage = () => takeScreenshot(refImage.current);
+  const [isScreenshot, setIsScreenShot] = useState(false); //Nhận biết mỗi lần chụp màn hình
+
+  const getImage = () => {
+    setIsScreenShot(true);
+    takeScreenshot(refImage.current);
+  };
 
   //Lưu ảnh vào máy
   const downloadImage = () => {
     saveAs(image, `img_order_${Math.floor(Math.random() * 1000)}`); // Put your image url here.
   };
   useEffect(() => {
-    if (image) downloadImage();
+    if (image && isScreenshot) downloadImage();
   }, [image]);
 
   return (
-    <div className="footer scroll-footer-order" ref={refImage}>
+    <div className="footer scroll-footer-order">
       <Row>
         <Col span={24}>
-          <Popconfirm
-            title="Bạn chắc chắn đặt không?"
-            onConfirm={() => handleDat()}
-            disabled={total_price == 0}
+          <button
+            className="button-order"
+            type="primary"
+            onClick={() => setVisibleOrder(true)}
+            disabled={total_price < 1}
           >
-            <Button className="button-order" type="primary">
-              Đặt
-            </Button>
-          </Popconfirm>
+            Đặt
+          </button>
           <p style={{ float: "right", marginRight: 10 }}>
             Tổng:{" "}
             {total_price > 0
@@ -247,7 +262,104 @@ const Footer = () => {
           />
         </Col>
       </Row>
+
+      <ModalOrder
+        visible={visibleOrder}
+        setVisible={setVisibleOrder}
+        dataBill={dataBill}
+        refImage={refImage}
+        handleDat={handleDat}
+        total_price={total_price}
+      />
+
+      <div style={{ display: "none" }}></div>
     </div>
+  );
+};
+
+//Modal Order
+const ModalOrder = ({
+  dataBill,
+  visible,
+  setVisible,
+  refImage,
+  handleDat,
+  total_price,
+}) => {
+  const [confirmLoading, setConfirmLoading] = useState(false);
+
+  const handleOk = () => {
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setVisible(false);
+      setConfirmLoading(false);
+    }, 500);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+  };
+
+  return (
+    <>
+      <Modal
+        title="Xác nhận "
+        visible={visible}
+        onOk={handleOk}
+        confirmLoading={confirmLoading}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <div>
+          <Row>
+            <Col span={24}>
+              <div ref={refImage} className="table-image-order">
+                <h5 style={{ padding: 10 }}>{dataBill.table}</h5>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Tên</th>
+                      <th>SL</th>
+                      <th>Giá</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dataBill?.detail?.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{item.name}</td>
+                          <td>{item.amount}</td>
+                          <td>
+                            {item.price?.toLocaleString("vi-VN", {
+                              style: "currency",
+                              currency: "VND",
+                            })}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+                <p style={{ marginTop: 48, paddingLeft: 10 }}>
+                  - Tổng giá:{" "}
+                  {total_price?.toLocaleString("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  })}
+                </p>
+                <p style={{ paddingLeft: 10 }}>
+                  - Thời gian:{" "}
+                  {moment(dataBill.createdAt).format("DD/MM/yyyy hh:mm:ss  A")}
+                </p>
+              </div>
+            </Col>
+          </Row>
+          <Button onClick={() => handleDat()} type="primary">
+            Xác nhận đặt
+          </Button>
+        </div>
+      </Modal>
+    </>
   );
 };
 

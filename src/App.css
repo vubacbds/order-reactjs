@@ -70,8 +70,10 @@
 }
 
 .button-order {
-  /* width: 100px; */
-  float: right;
+  width: 100px;
+  /* position: absolute;
+  right: 20px;
+  bottom: 20px; */
   background: #09C;
   color: #fff;
   font-family: Tahoma, Geneva, sans-serif;
@@ -79,7 +81,7 @@
   border-radius: 15px;
   border: 1p solid #999;
   top: 10px;
-  margin-bottom: 20px;
+  float: right;
 }
 
 .button-order:hover {
@@ -171,6 +173,36 @@
   padding: 8px;
   vertical-align: top;
   border-top: 1px solid #ddd;
-  font-size: 30px !important;
+}
 
+
+.table-image-order {
+  padding: 10;
+  border: none;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  width: auto;
+  margin: 0px auto 10px;
+}
+.table-image-order td {
+  padding: 0;
+  border: none;
+  border-collapse: collapse;
+}
+.table-image-order tr>td
+ {
+  border: 1px solid #ddd;
+  padding: 8px;
+  /* line-height: 1.42857143; */
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+  font-weight: normal;
+
+}
+
+.table-image-order tr>th  {
+  border: 1px solid #ddd;
+  padding: 8px;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
 }
