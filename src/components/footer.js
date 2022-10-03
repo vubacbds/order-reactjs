@@ -10,15 +10,17 @@ import get_product, { update_product } from "../action/product";
 import BillAPI from "../services/billAPI";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, createRef, useEffect } from "react";
+import { useScreenshot } from "use-react-screenshot"; //Chụp hình ảnh
+import { saveAs } from "file-saver"; //Lưu vào máy
 
 const Footer = () => {
   const dispatch = useDispatch();
   const dataProduct = useSelector((state) => state.product.data);
   const dataBill = useSelector((state) => state.bill.data);
+  const dataBillTable = dataBill.detail?.filter((item) => item.amount > 0);
   const dataBillALL = useSelector((state) => state.bill.dataAll);
 
-  const dataBillTable = dataBill.detail?.filter((item) => item.amount > 0);
   const navigate = useNavigate();
 
   const total_price = dataBill.detail?.reduce((total, currentValue) => {
@@ -99,7 +101,7 @@ const Footer = () => {
           dispatch(add_bill_all(doc));
           BillAddSuccess();
           alert(
-            "Cảm ơn Quý khách đã đặt nước thành công! Ít phút nữa nhân viên đưa tới bàn nhé ạ"
+            "Cảm ơn Quý khách đã đặt nước thành công! Ít phút nữa nhân viên đưa tới bàn nhé"
           );
           document.getElementById("app")?.classList.add("app-disabled");
           setIsDat(true);
@@ -108,6 +110,9 @@ const Footer = () => {
           BillAddFail(err.response.data.message);
         });
     }
+
+    //Chụp hình ảnh
+    getImage();
   };
 
   //Cột table
@@ -181,8 +186,22 @@ const Footer = () => {
 
   //Số 0
   let number0 = 0;
+
+  //Chụp hình ảnh
+  const refImage = createRef(null);
+  const [image, takeScreenshot] = useScreenshot();
+  const getImage = () => takeScreenshot(refImage.current);
+
+  //Lưu ảnh vào máy
+  const downloadImage = () => {
+    saveAs(image, `img_order_${Math.floor(Math.random() * 1000)}`); // Put your image url here.
+  };
+  useEffect(() => {
+    if (image) downloadImage();
+  }, [image]);
+
   return (
-    <div className="footer scroll-footer-order">
+    <div className="footer scroll-footer-order" ref={refImage}>
       <Row>
         <Col span={24}>
           <Popconfirm

@@ -120,7 +120,7 @@ const Product = () => {
 
     //Kiểm tra sản phẩm đã có trong bill chưa
     const isHave =
-      dataBill?.detail.length > 0
+      dataBill?.detail?.length > 0
         ? dataBill?.detail?.find((i) => {
             return i?.id == item._id;
           })
@@ -131,6 +131,7 @@ const Product = () => {
       return;
     } else {
       if (item.amount > 0) {
+        //Giảm số lượng
         const updateDetail = dataBill?.detail?.map((i) => {
           if (i.id == item._id) {
             return (i = {
@@ -142,11 +143,16 @@ const Product = () => {
           } else return i;
         });
 
+        //Sau khi giảm số lượng mà bằng 0 thì loại khỏi mảng
+        const updateDetail2 = updateDetail?.filter((i) => {
+          return i.amount > 0;
+        });
+
         dispatch(
           update_bill({
             table: `Bàn ${params.ban}`,
             note: "Nhanh nhé!",
-            detail: updateDetail,
+            detail: updateDetail2,
             total_price: 0,
             status: false,
           })
