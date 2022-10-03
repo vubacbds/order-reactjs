@@ -101,7 +101,7 @@ const Footer = () => {
           dispatch(add_bill_all(doc));
           BillAddSuccess();
           alert(
-            "Cảm ơn Quý khách đã đặt nước thành công! Ít phút nữa nhân viên đưa tới bàn nhé"
+            "Cảm ơn Quý khách đã đặt nước thành công. Ít phút nữa nhân viên đưa tới bàn nhé!"
           );
           document.getElementById("app")?.classList.add("app-disabled");
           setIsDat(true);
