@@ -121,6 +121,9 @@ const Footer = () => {
 
     //Chụp hình ảnh
     getImage();
+
+    //reset lại
+    handleReset();
   };
 
   //Cột table
@@ -190,9 +193,6 @@ const Footer = () => {
 
     //gọi lại tất cả bill
     dispatch(get_bill_all());
-
-    //không chụp
-    setIsScreenShot(false);
   };
 
   //Số 0
@@ -214,14 +214,15 @@ const Footer = () => {
   //Lưu ảnh vào máy
   const downloadImage = () => {
     saveAs(image, `img_order_${Math.floor(Math.random() * 1000)}`); // Put your image url here.
-    //tai anh xong reset lại
-    handleReset();
   };
   useEffect(() => {
     if (image && isScreenshot) {
       //Chụp hình ảnh
       downloadImage();
     }
+
+    //không chụp
+    setIsScreenShot(false);
   }, [image]);
 
   return (
