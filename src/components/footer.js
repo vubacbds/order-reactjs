@@ -90,8 +90,13 @@ const Footer = () => {
         alert(
           "Cảm ơn Quý khách đã đặt nước thành công. Ít phút nữa nhân viên đưa tới bàn nhé!"
         );
-        document.getElementById("app")?.classList.add("app-disabled");
-        setIsDat(true);
+
+        //Chụp hình ảnh
+        getImage();
+
+        //Làm mờ nền, hiện nút đặt tiếp
+        // document.getElementById("app")?.classList.add("app-disabled");
+        // setIsDat(true);
       });
     } else {
       //Trường hợp bàn mới thì tạo mới DB
@@ -105,19 +110,22 @@ const Footer = () => {
           alert(
             "Cảm ơn Quý khách đã đặt nước thành công. Ít phút nữa nhân viên đưa tới bàn nhé!"
           );
-          document.getElementById("app")?.classList.add("app-disabled");
-          setIsDat(true);
+
+          //Chụp hình ảnh
+          getImage();
+          // setIsDat(true);
+          // document.getElementById("app")?.classList.add("app-disabled");
         })
         .catch((err) => {
           BillAddFail(err.response.data.message);
         });
     }
 
-    //Chụp hình ảnh
-    getImage();
-
     //ĐÓng modal
     setVisibleOrder(false);
+
+    //reset lại
+    handleReset();
   };
 
   //Cột table
@@ -165,11 +173,11 @@ const Footer = () => {
     },
   ];
 
-  const [isDat, setIsDat] = useState(false);
+  // const [isDat, setIsDat] = useState(false);
   const handleReset = () => {
     //Ẩn button thông báo thành công và tắt ẩn cả app
-    document.getElementById("app")?.classList.remove("app-disabled");
-    setIsDat(false);
+    // document.getElementById("app")?.classList.remove("app-disabled");
+    // setIsDat(false);
 
     //Reset lại bill
     dispatch(
@@ -213,7 +221,9 @@ const Footer = () => {
     saveAs(image, `img_order_${Math.floor(Math.random() * 1000)}`); // Put your image url here.
   };
   useEffect(() => {
-    if (image && isScreenshot) downloadImage();
+    if (image && isScreenshot) {
+      downloadImage();
+    }
   }, [image]);
 
   return (
@@ -240,7 +250,7 @@ const Footer = () => {
                   currency: "VND",
                 })}
           </p>
-          {isDat && (
+          {/* {isDat && (
             <Button
               className="app-enabled "
               type="primary"
@@ -250,7 +260,7 @@ const Footer = () => {
             >
               Đặt tiếp tại đây!
             </Button>
-          )}
+          )} */}
           <Table
             columns={columns}
             dataSource={dataBillTable}
