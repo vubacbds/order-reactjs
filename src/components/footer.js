@@ -213,15 +213,15 @@ const Footer = () => {
     saveAs(image, `img_order_${Math.floor(Math.random() * 1000)}`); // Put your image url here.
   };
   useEffect(() => {
+    //reset lại
+    handleReset();
+
+    //ĐÓng modal
+    setVisibleOrder(false);
+
     if (image && isScreenshot) {
       //Chụp hình ảnh
       downloadImage();
-
-      //ĐÓng modal
-      setVisibleOrder(false);
-
-      //reset lại
-      handleReset();
     }
   }, [image]);
 
