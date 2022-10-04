@@ -116,6 +116,9 @@ const Footer = () => {
         });
     }
 
+    //ĐÓng modal
+    setVisibleOrder(false);
+
     //Chụp hình ảnh
     getImage();
   };
@@ -211,14 +214,10 @@ const Footer = () => {
   //Lưu ảnh vào máy
   const downloadImage = () => {
     saveAs(image, `img_order_${Math.floor(Math.random() * 1000)}`); // Put your image url here.
+    //tai anh xong reset lại
+    handleReset();
   };
   useEffect(() => {
-    //reset lại
-    handleReset();
-
-    //ĐÓng modal
-    setVisibleOrder(false);
-
     if (image && isScreenshot) {
       //Chụp hình ảnh
       downloadImage();
