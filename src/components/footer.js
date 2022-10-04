@@ -91,9 +91,6 @@ const Footer = () => {
           "Cảm ơn Quý khách đã đặt nước thành công. Ít phút nữa nhân viên đưa tới bàn nhé!"
         );
 
-        //Chụp hình ảnh
-        getImage();
-
         //Làm mờ nền, hiện nút đặt tiếp
         // document.getElementById("app")?.classList.add("app-disabled");
         // setIsDat(true);
@@ -111,8 +108,6 @@ const Footer = () => {
             "Cảm ơn Quý khách đã đặt nước thành công. Ít phút nữa nhân viên đưa tới bàn nhé!"
           );
 
-          //Chụp hình ảnh
-          getImage();
           // setIsDat(true);
           // document.getElementById("app")?.classList.add("app-disabled");
         })
@@ -121,11 +116,8 @@ const Footer = () => {
         });
     }
 
-    //ĐÓng modal
-    setVisibleOrder(false);
-
-    //reset lại
-    handleReset();
+    //Chụp hình ảnh
+    getImage();
   };
 
   //Cột table
@@ -222,7 +214,14 @@ const Footer = () => {
   };
   useEffect(() => {
     if (image && isScreenshot) {
+      //Chụp hình ảnh
       downloadImage();
+
+      //ĐÓng modal
+      setVisibleOrder(false);
+
+      //reset lại
+      handleReset();
     }
   }, [image]);
 
