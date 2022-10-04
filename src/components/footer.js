@@ -119,11 +119,11 @@ const Footer = () => {
     //ĐÓng modal
     setVisibleOrder(false);
 
-    //Chụp hình ảnh
-    getImage();
-
     //reset lại
     handleReset();
+
+    //Chụp hình ảnh
+    getImage();
   };
 
   //Cột table
@@ -177,6 +177,9 @@ const Footer = () => {
     // document.getElementById("app")?.classList.remove("app-disabled");
     // setIsDat(false);
 
+    //Reset lại số lượng sp về ko
+    dispatch(get_product());
+
     //Reset lại bill
     dispatch(
       update_bill({
@@ -187,9 +190,6 @@ const Footer = () => {
         status: false,
       })
     );
-
-    //Reset lại số lượng sp về ko
-    dispatch(get_product());
 
     //gọi lại tất cả bill
     dispatch(get_bill_all());
