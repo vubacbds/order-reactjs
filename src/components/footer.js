@@ -121,6 +121,8 @@ const Footer = () => {
 
     //reset lại
     handleReset();
+    //Reset lại số lượng sp về ko
+    dispatch(get_product());
 
     //Chụp hình ảnh
     getImage();
@@ -176,9 +178,6 @@ const Footer = () => {
     //Ẩn button thông báo thành công và tắt ẩn cả app
     // document.getElementById("app")?.classList.remove("app-disabled");
     // setIsDat(false);
-
-    //Reset lại số lượng sp về ko
-    dispatch(get_product());
 
     //Reset lại bill
     dispatch(
