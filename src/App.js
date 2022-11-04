@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
 //react
 import React, { useEffect } from "react";
@@ -24,6 +24,8 @@ import Login from "./components/login";
 import ProductList from "./components/productlist";
 import Demo from "./components/demo";
 import Bill from "./components/bill";
+//meta head
+import MetaTags from "react-meta-tags";
 
 function App() {
   const Product = React.lazy(() => import("./components/products"));
@@ -38,6 +40,12 @@ function App() {
 
   return (
     <>
+      <MetaTags>
+        <title>Page 1</title>
+        {/* <meta name="description" content="Some description." /> */}
+        <meta property="og:title" content="MyApp" />
+        {/* <meta property="og:image" content="path/to/image.jpg" /> */}
+      </MetaTags>
       <div className="App" id="app">
         <Routes>
           <Route
